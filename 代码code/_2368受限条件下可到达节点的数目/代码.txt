@@ -1,0 +1,39 @@
+class Solution{
+	//存储节点--子节点的结构
+	vector<vector<int>> e;
+	//存储节点，判断是否限制
+	vector<bool> ban;
+	int ans;
+	
+	//深度优先遍历--sn是fa的子节点，fa是sn的父节点
+	void dfs(int sn, int fa){
+		ans++;
+		//fn是sn的子节点
+		for(int fn : e[sn]) 
+			//如果不是限制节点，且子节点不等于父节点
+			if(fn != fa && !ban[fn]) 
+				dfs(fn, sn);
+	}
+
+public:
+	int reachableNodes(int n, vector<vector<int>>& edges,vector<int>& restricted){
+		//设置大小为n后(坐标从0-n-1）
+		e.resize(n);
+		ban.resize(n);
+		//填充e
+		for(auto &vec : edges){
+			//未设置大小，使用push_back
+			e[vec[0]].push_back(vec[1]);
+			e[vec[1]].push_back(vec[0]);
+		}
+		//填充ban
+		for(int x: restricted)
+			ban[x] = true;
+		
+		//深度遍历
+		dfs(0, -1);
+	
+		return ans;
+	}
+
+}

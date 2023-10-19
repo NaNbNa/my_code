@@ -1,0 +1,18 @@
+class Solultion{
+public:
+	int combinationSum4(vector<int>& nums, int target){
+		//数组标号要+1，从0到target代表target+1个空间
+		vector<int> dp (target + 1);
+		dp[0] = 1;
+		
+		for(int i = 1; i <= target; i++){
+			for(int& num: nums){
+				//动态规划条件--决策条件
+				//保证dp[i - num] + dp[i] 不越界
+				if( num <= i && dp[i - num] < INT_MAX - dp[i])
+					dp[i] += dp[i - num];
+			}
+		}
+		return dp[target];
+	}
+}

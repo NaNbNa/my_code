@@ -1,0 +1,68 @@
+class Solution{
+	public int minimumIncompatibility(int[] nums, int k){
+		int n = nums.length;
+		//子集内元素个数
+		int group = n/k;
+		int inf = Integer.MAX_VALUE;
+		//存储最终答案
+		//所有子集的状态
+		int[] dp = new int[1<<n];
+		//初始化为最大值
+		Arrays.fill(dp,inf);
+		dp[0] = 0; //空集
+		
+		HashMap<Integer,Integer>values = new HashMap<>();
+		//开始遍历子集,找出合适题目要求的子集，并计算子集的max-min
+		for(int mask = 1;mask<(1<<n);mask++){
+			//用于计算整数 mask 的二进制表示中有多少个1,并且1的个数不等于group时跳过该次循环
+			if(Integer.bitCount(mask)! = group)
+				continue;
+			int mn = 20, mx = 0;
+			//cur的用处就是搜集不重复的元素，因为在子集中，会存在相同元素
+			HashSet<Integer> cur = new HashSet<>();
+			//计算mask中元素的最大值和最小值
+			for(int i = 0;i<n;i++){
+				//mask中存在第i位的元素
+				if(mask & （1<<i)>0){
+					if(cur.contains(nums[i])
+						break;
+					cur.add(nums[i]);
+					mn = Math.min(mn,nums[i]);
+					mx = Math.max(mx,nums[i]);
+
+}
+}		
+			//将mask中的最大值-最小值
+			if(cur.size() == group)
+				values.put(mask,mx-mn);
+}
+		//固定一个有k个元素的集合，遍历其他元素的集合的子集
+		for(int mask = 0;,mask<(1<<n);mask++){
+			if(dp[mask]==inf)
+				continue;
+			HashMap<Integer,Integer> seen = new HashMap<>();
+			//seen存储mask外的其他元素和对应的位数，可以排除掉mask外的相同元素
+			for(int i= 0;i<n;i++)
+				if((mask&(1<<i))==0)
+					seen.put(nums[i],i);
+			//排除相同元素后的元素个数未知，需要加个限制
+			if(seen.size()<group)
+				continue;
+			int sub = 0;
+			//通过异或，sub的值是mask外的不相同元素的组合
+			for(Int v :seen.values())
+				sub | = (1<<v);
+			int nxt = sub;
+			//状态转移方程--遍历子集
+			while(nxt >0){
+				if(values.containsKey(nxt))
+					//mask | nxt 意思是mask 集合 和 nxt 集合 合并
+					//这里的min是对比 之前已经合并的集合 和 本次循环的合并的新集合 的大小
+					dp[mask | nxt] = Math.min(dp[mask | nxt], dp[mask] +values.get(nxt));
+				//获取sub的子集
+				nxt = (nxt -1) & sub;
+}
+}
+		return (dp[(1<<n) -1] <inf) ？ dp[(1<<n)-1 ]: -1;
+}
+}

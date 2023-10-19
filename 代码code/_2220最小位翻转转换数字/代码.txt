@@ -1,0 +1,12 @@
+class Solution{
+public:
+	int minBitFlips(int start,int goal){
+		int res = 0;
+		int temp = start ^ goal;
+		while(temp){
+		res += temp & 1;
+		temp >>= 1;
+		}
+		return res;
+	}
+}

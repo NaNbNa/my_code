@@ -1,0 +1,28 @@
+class Solution{
+public:
+	int majorityElement(vector<int> & nums){
+		//寄存答案
+		int candidate = 0;
+		//计数器
+		int count = 0;
+		//第一次遍历--摩尔投票
+		for(int& num : nums){
+			if(count == 0) 
+				candidate = num;
+
+			if(num == candidate)
+				count++;
+			else
+				count--;
+		}
+		//第二次遍历--判断是否存在主要元素
+		count = 0;
+		int length = nums.size();
+		for( int& num: nums){
+			if(num == candidate)
+				count ++;
+		}
+		//大于一半
+		return count * 2 > length ? candidate :-1;
+	}
+}

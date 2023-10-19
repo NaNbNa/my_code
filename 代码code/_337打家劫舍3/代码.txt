@@ -1,0 +1,29 @@
+//存储选择和不选择的结果
+struct SubtreeStatus{
+	int selected;
+	int notSelected;
+}
+class Solution{
+public:
+	//计算每个节点的选中和未选中的结果--迭代法
+	SubtreeStatus dfs(TreeNode* node){
+		//迭代初始条件，也是迭代终止条件
+		if(!node)
+			return {0, 0};
+		auto l = dfs(node -> left);
+		auto r = dfs(node -> right;
+		//计算选中和未选中的结果
+		int selected = node -> val + l.notSelected + r.notSeleted;
+		int notSelected = max( l.selected, l.notSelected) + max( r.selectes, r.notSelected);
+		//返回选中的结果
+		return  {selected, notSelected};
+	}	
+	
+	int rob(TreeNode* root){
+		//返回根节点
+		auto rootStatus = dfs(root);
+		//根据根节点的选中和未选中的结果，去返回最大值
+		return max(rootStatus.selected, rootStatus.notSelected);
+	}
+		
+}

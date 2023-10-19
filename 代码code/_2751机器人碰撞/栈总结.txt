@@ -1,0 +1,25 @@
+——题目是用列表和栈解决的
+1.为什么能用栈和列表解决
+--题目中的机器人位置，我们是从左到右去找机器人碰撞的，而碰撞发生是最迟发现的机器人，这个性质和栈类似，后进先出
+--然后因为是从从左到右寻找机器人的，如果前面找到的（碰撞后）没有一个向右走的机器人，而是一个向左走的机器人，那肯定是不会有碰撞的
+--所以又用上了列表
+——代码知识：
+1.
+//排序函数--id数组将按照与positions数组相关的值升序排序：从小到大
+		//i 和 j 的排序：返回true，i 排在j 前面，返回false，i 排在 j 后面
+		sort(id , id + n , [&] (const int i, const int j){
+			return  positions[i] < positions[j];
+		});
+2.pop（）
+3.push（）
+4.
+//初始化列表
+iota(id , id + n, 0);
+5.栈的初始化：stack<int> st;
+
+6.healths.erase(remove(healths(begin(), healths.end(), 0) ,healths.end()):从一个名为 healths 的容器中删除所有值为0的元素
+healths.begin() 返回指向容器 healths 第一个元素的迭代器。
+healths.end() 返回指向容器 healths 结尾的迭代器，即指向最后一个元素的下一个位置的迭代器。
+remove(healths.begin(), healths.end(), 0) 函数会在容器 healths 中查找等于0的元素，并将它们移到容器的末尾。注意，这个函数并不会真正删除元素，而是将不需要的元素移到末尾，并返回一个指向新逻辑末尾的迭代器。
+erase() 函数将通过迭代器范围删除 remove() 函数移动到末尾的元素。这样就实现了删除所有值为0的元素。
+最终，healths 容器中将只包含非零值的元素

@@ -1,0 +1,36 @@
+class Solution{
+public:
+	int minCapability(vector<int>& nums, int k){
+		//最小值
+		int lower = *min_elment(nums.begin(), nums.end());
+		//最大值
+		int upper = *max_element(nums.begin(), nums.end());
+		
+		//二分法--注意条件
+		while(lower <= upper) {
+			//向下取整
+			int middle = (lower + upper) / 2;
+			int count = 0;
+			//visited作为判断是否是邻居
+			bool visited = false;
+			for(int x: nums){
+				//if成立，修改visited，下一个（邻居）不可访问
+				//if就算不成立，也要将visited改成false，可访问状态
+				if(x < middle && !visited){
+					++count;
+					visited = true;
+				}else
+					visited = false;
+			}
+			//当lower==upper，包含正确集k却移动了，所以lower是正确集
+			if( count >=k)
+				upper = middle -1;
+			//不等于k或小于k
+			//当lower==upper，不包含正确集但移动了，所以upper不是正确集
+			else
+				lower = middle + 1;
+		}
+		//lower才是正确值
+		return lower;
+	}
+}

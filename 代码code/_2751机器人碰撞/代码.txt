@@ -1,0 +1,50 @@
+class Solution{
+public:
+	vector<int> survivedRobotsHealths(vector<int>& positions, vector<int>& healths, string direstions) {
+		int n = positions.size(), id[n];
+		//初始化列表
+		iota(id , id + n, 0);
+		//排序函数--id数组将按照与positions数组相关的值升序排序：从小到大
+		//i 和 j 的排序：返回true，i 排在j 前面，返回false，i 排在 j 后面
+		sort(id , id + n , [&] (const int i, const int j){
+			return  positions[i] < positions[j];
+		});
+		
+		stack<int> st;
+		//开始判断碰撞
+		for(int i : id){
+			//入栈
+			if(directions[i] == 'R'){
+				st.push(i);
+				continue;
+			}
+			//能到这一步，说明找到向左走的机器人
+			//向左寻机器人
+			while(!st.empty){
+				int top = st.top();
+				//第一种情况
+				if(healths[top] > healths[i]){
+					-- healths[top] ;
+					healths[i] = 0; //代表机器人不存在
+					break;
+				}	
+				//第二种情况
+				if(healths[top] == healths[i]){
+					healths[top] = 0;
+					healths[i] = 0;
+					st.pop();
+					break;
+				}
+				//第三种情况--这种时候healths[i]继续存在
+				healths[top] = 0;
+				st.pop()；
+				healths[i] --;
+			}
+		}
+		
+		//去掉0--等同于way图片里的合并
+		//erase须和remove同时使用，详情见总结 
+		healths.erase(remove(healths(begin(), healths.end(), 0) ,healths.end());
+		return healths;
+	}
+}

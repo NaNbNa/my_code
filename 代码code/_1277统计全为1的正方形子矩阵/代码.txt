@@ -1,0 +1,20 @@
+class Solution:
+   	//matrix: 这是 countSquares 函数的第一个参数，它是一个二维列表（列表的列表），表示输入的矩阵。
+	//每个内部列表代表矩阵的一行，而外部列表则包含所有行，构成一个完整的二维矩阵
+	//箭头 -> 后面的 int 表示该函数将返回一个整数类型的值
+	def countSquares(self,matrix:List[List[int]])->int:
+		m,n = len(matrix), len(matrix[0])
+		//用于创建一个二维列表（即列表的列表），并且将其中的元素初始化为0。
+		f = [[0]* n for _ in range(m)]
+		ans = 0;
+		//for循环，构造递推式
+		for i in range(m):
+			for j in range(n):
+				if i==0 or j==0:
+					f[i][j] = matrix[i][j]
+				elif matrix[i][j] == 0:
+					f[i][j] = 0
+				else:
+					f[i][j] = min(f[i][j-1],f[i-1][j],f[i-1][j-1]) + 1
+				ans + =f[i][j]
+		return ans

@@ -1,0 +1,37 @@
+class Solution{
+public:
+	ListNode* addTwoNumbers(ListNode* l1, ListNode* l2){
+		//双指针
+		ListNode* head = nullptr, * tail = nullptr;	
+		int carry = 0;
+		//l1 ，l2 全部为nullptr时推出循环
+		while(l1 || l2) {
+			//需要判断l1,l2是否为nullptr
+			int n1= l1 ? l1->val : 0;
+			int n2 = l2 ? l2 ->val : 0;
+			
+			int sum = l1 +l2  + carry;
+			//头指针为空
+			if(!head){
+				head = tail = new ListNode(sum%10);
+			}else{//头指针不为空,处理尾部指针
+				tail->next = new ListNode(sum%10);
+				tail = tail -> next;
+			}
+			//更新carry
+			carry = sum / 10;
+			//更新l1,l2
+			//需要判断l1,l2是否为nullptr
+			if(l1)
+				l1= l1 ->next;
+			if(l2)
+				l2 = l2 ->next;
+		}
+		//注意细节,判断carry
+		if(carry> 0){
+			tail ->next = new ListNode(carry);
+			//不需要tail = tail ->next,因为到此函数结束后，tail不存在，无需操作
+		}
+		return head;
+	}
+}

@@ -1,0 +1,24 @@
+class Solution{
+	public int maximumGroups(int[] grades)
+	{
+	long len = grades.length;
+	long ans = 1;
+	long l =1,r= len;
+	while(l < = r)
+	{
+	//假设分成m组--m是l和r的平均数，因为使用long，所以求平均使用位移
+	long m = (（r-l）>>1) +l;
+	//分m组需要need个人,等差数列求和
+	long need = （1+m)*m/2;
+	if（need > len)  //人不够
+	    r=m-1; 
+	else  // 人多出来了或者刚刚够	
+	{
+	ans = m;  //先把分组记录下来	
+	l = m +1; 这一步可以把多出来的人试着再分组，再分组的组数一定更大
+}
+}
+	//while结束
+	return ans;
+}
+}

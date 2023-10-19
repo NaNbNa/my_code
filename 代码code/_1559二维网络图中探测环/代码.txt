@@ -1,0 +1,75 @@
+class Solution{
+	public boolean containsCycle(char[][] grid){
+		int m = grid.length;
+		int n = grid[0].length;
+		//并查集--一维数组
+		UnionFind uf = new UnionFind(m*n);
+		//遍历全部点
+		for(int i = 0; i<m;i++){
+			for(int j=0;j<n;j++){
+				//上边的点
+				if(i>0&& grid[i][j] = grid[i-1][j])
+					if(!uf.findAndUnite(i*n+j,(i-1)*n+j)
+						return true;
+				//左边的点
+				if(j>0&&grid[i][j] == grid[][j-1])
+					if(!uf.findAndUnite(i*n+j,i*n+j-1)
+						return true;
+}
+}
+		return false;
+}
+}
+class UnionFind{
+	//父亲节点
+	int[] parent;
+	//集合大小
+	int[] size;
+	int n;
+	int setCount;
+
+	public UnionFind(int n){
+		parent  = new int[n];
+		//初始化父亲节点
+		for(int i=0;i<n;i++)
+			parent[i] = i;
+		//集合大小
+		size = new int[n];
+		Arrays.fill(size,1);
+		this.n = n;
+		setCount = n;
+}
+	//找出最开头的父亲节点
+	public int findset(int x){
+		//如果是其本身，那么就是九开头的父节点
+		//如果不是，就进行回溯找出最开头的节点
+		return parent[x] = x ? x : (parent[x] = findset(parent[x]));
+}
+	// 合并，将y合并到x。并设置父节点
+	public void unite(int x,int y){
+		//集合大小，大的为x
+		if(size[x] <size[y]){
+			int temp = x;
+			x= y ;
+			y= temp;
+}
+		//修改父亲节点，把y的父节点改成x
+		parent[y] = x;
+		//修改x集合大小
+		size[x] += size[y];
+		//合并次数
+		--setCount;
+}
+	//检查是否可以合并，如果可以就执行合并操作，不可以合并就返回false
+	public boolean findAndUnite(int x,int y ){
+		//找出最开头的父节点(或者说是根）
+		int parentX= findset(x);
+		int parentY = findset(y);
+		//不连通，就进行合并操作
+		if(parentX != parentY){
+			unite(parentX,parentY);
+			return true;
+}
+		return false;
+}
+}

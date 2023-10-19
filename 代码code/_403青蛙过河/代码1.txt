@@ -1,0 +1,32 @@
+class Solution{
+	//记忆数组
+	private Boolean[][] rec;
+	public boolean canCross(int[] stones){
+		int n = stones.length;
+		rec = new Boolean[n][n];
+		return dfs(stones,0,0);
+}
+	//判断
+	private boolean dfs(int[] stones,int i,int lastDis)
+	{
+		if(i==stones.length-1)
+			return true;
+		//返回最后
+		if(rec[i][lastDis]!=null)
+			return rec[i][lastDis];
+		//三个分支--for循环+使用dfs函数
+		for(int curDis = lastDis-1;curDis<=lastDis+1;curDis++){
+			if(curDis>0){
+				//数组的二分查找。范围从i+1到length，查找的元素是curDis+stones[i]
+				//如果查找成功，将索引返回给j
+				int j = Arrays.binarySeach(stones,i+1，stones.length,curDis+stones[i]);
+				if(j>=0&&dfs(stones,j,curDis)
+					//将递归的返回值设置为 true，并将结果存储在一个记忆数组中
+					//以便在后续的递归调用中进行查找和复用
+					return rec[i][lastDis] = true;
+}
+}
+		//这行代码是一个赋值语句。它将右侧的值 false赋给记忆数组 rec 的特定位置 rec[i][lastDis]
+		return rec[i][lastDis] =false;
+}
+}

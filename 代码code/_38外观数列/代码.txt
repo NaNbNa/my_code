@@ -1,0 +1,24 @@
+class Solution{
+public:
+	string countAndSay(int){
+		string prev = "1";
+		for(int i=2; i <= n; i++){
+			string curr = "";
+			//数字
+			int start = 0;
+			//下标
+			int pos = 0;
+			//获取数列的第i个值
+			while(pos < prev.size()){
+				while(pos < prev.size() && prev[pos] == prev[start]
+					pos++;
+				//以下标来计数相同数字的个数，而不是另外用一个数存储--符合重构原则
+				curr += to_string(pos - start) + prev[start];
+				start = pos;
+			}
+			// 更新数列的值
+			prev = curr;
+		}	
+		return prev;
+	}
+}

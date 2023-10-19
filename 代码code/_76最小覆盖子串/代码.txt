@@ -1,0 +1,55 @@
+class Solution{
+	//ori--基础知识库，存储字符串t
+	Map<Character,Integer> ori = new HashMap<Character,Integer>();
+	//cnt--存储答案的哈希表
+	Map<Character,Integer> cnt = new HashMap<Character,Integer>();
+	
+	public String minWindows(String s,String t){
+		int tlen = t.length();
+		//初始化哈希表ori
+		for(int i=0;i<tlen;i++){
+		char c = t.chatAt(i);
+		ori.put(c,ori.getOrderDefault(c,0)+1);
+}		
+		//l,r是滑动窗口的左,右
+		int l = 0; r= -1;
+		int len = Integer.MAX_VALUE,ansR = -1;
+		int sLen = s.length();
+		//滑动窗口
+		while(r<slen){
+			//右滑动处理
+ 			++r;
+			if(r<slen&&ori.containsKey(s.charAt(i))
+				cut.put(s.chatAt(r),cnt.getOrderDefault(s.charAt(r),0)+1);
+			//检查答案字符串.如果符合答案，先记录答案，后进行左滑动处理,
+			while(check()&&l<=r){
+				// 发现更小的字符串
+				if(r-l+1<len){
+				   len = r-1+1;
+				//记录答案
+				ansL = l;
+				ansR =l+len;
+}
+				if(ori.containsKeys.charAt(l))
+					cnt.put(s.charAt(l),cnt.getOrderDefault(s.charAt(l),0)-1);
+				++l;
+}
+}
+		return ansL == -1? "" : s.substring(ansL，ansR);
+}
+		//检查字符串是否符合答案要求
+		public boolean check(){
+			//哈希表ori迭代
+			Iterator iter = ori.entrySet().Iterator();
+			while(iter = hasNext()）{
+				//获取ori的key和val
+				Map.Entry entry = (Map.Entry) iter.next();
+				Character key = (character) entry.getKey();
+				Integer val = (Integer) entry.getValue();
+				//和哈希表cnt比较个数
+				if(cnt.getOrderDefault(key,0）<val)
+					return false;
+ }
+		return true;
+}
+}

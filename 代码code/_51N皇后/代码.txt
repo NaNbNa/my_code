@@ -1,0 +1,55 @@
+class Solution{
+public:
+	vector<vector<string>> solveNqueens(int n){
+		//全部解
+		auto solutions = vector<vector<string>>();
+		//一种解--皇后的位置
+		auto queens = vector<int>(n,-1);
+		//找出可能解--这四个0分别是 --行，列，diagonals1, diagonals2
+		solve(solutions, queens, n, 0, 0, 0, 0);
+		return solutions；
+	}
+	
+	void solve(vector<vector<string> &solutions,vector<int>& quees, int n, int row, int columns, int diagonals1,int diagonals2){
+		//找到可行解
+		if(row == n){
+			auto board = generateBoard(queens, n);
+			solution.push_back(board);
+		}else{
+			//这里出现1<<n的原因是为了将数字拓展成n位二进制，这样才能获取到位置
+			int availablePositions = (( 1 << n ) -1 ) & ( ~( columns | diagonals1 | diagonals2));	
+			//有可以放置皇后的位置
+			while( availablePosition != 0){
+				//获取availablePositions的n位二进制中的最右边（最小）的1的位置
+				int position = availblePositions & (-availablePositions);
+				//由于最小的1取到了，将availablePositions-1 且 & 之前的数才可以去掉已经取用的1
+				availablePositions = availablePositions & ( availablePositions -1);
+
+				// _builtin_ctz--返回括号内数的二进制表示形式中末尾0的个数
+				//根据此函数就可以获取position中唯一的“1”的所在列数（例子，6个0，则坐标从0开始，最右边的1的坐标是)
+				//注意，不是columns
+				int column = _builtin_ctz(position);
+				queens[row] = column;
+				
+				//回溯开始
+				solve(solutions,queens, n ,row +1, columns | position, ( diagonals1 | position ) >>1, ( diagonals | position) << 1);
+				//回溯条件重置
+				queens[row] = -1;
+			}
+		}
+		
+	}
+	
+	//根据皇后所在列数存储答案
+	vector<string> generateBoard(vector<int> & queens, int n) {
+		auto board = vector<string>();
+		for(int i = 0; i< n; i++){
+			//生成n个'.'
+			string row = string(n, '.');
+			//修改string容器的一个字符
+			row[queens[i]] = 'Q';
+			board.push_back(row);
+		}
+		return board;
+	}
+}

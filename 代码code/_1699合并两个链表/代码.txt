@@ -1,0 +1,20 @@
+class Solution{
+ 	public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2){
+	ListNode preA = list1;
+	//指向坐标a-1的元素
+	for(int i=0;i<a-1;i++)
+		preA = preA.next;
+	ListNode preB = preA;
+	//指向坐标b+1的元素	
+	for(int i=0;i<b-a+2;i++)
+		preB = preB.next;
+	
+	//调整指针
+	preA.next = list2;
+	while(list.next!=null)
+		list2 - list2.next;
+	
+	list2.next = preB;
+	return list1;
+}
+}

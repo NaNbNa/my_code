@@ -1,0 +1,21 @@
+//模拟
+class Solution{
+public:
+	int numWasteBottles(int numBottles, int numExchange){
+		int bottle = numBottles, ans = num Bottles;
+		//每次循环都只换一个瓶子----可以改进成一次换完所有旧瓶子
+		while(bottle > numExchange){
+			bottle -= numExchange;
+			++ ans;
+			++bottle;
+		}
+		return ans;
+	}
+}
+//数学
+class Solution{
+public:
+	int numWaterBottles(int numBottles, int numExchange){
+		return numBottles >= numExchange ? (numBottles - numExchange) / (numExchange -1 ) + 1 + numBottles : numBottles;
+	}	
+}

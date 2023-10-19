@@ -1,0 +1,28 @@
+class Solution{
+	public int countDaysTogether(String arriveAlice,String leaveAlice,String arriveBob,String leaveBob){
+	//最基本的知识库--一年12月对应的天数
+	 int[] datesOfMonths = {31,28,31,30,31,30,31,31,30,31,30,31};
+	//前缀和
+	int[] preficSum = new int[13];
+	//构造前缀和,i=0时，prefixSum[0]=0;
+	for(int i=0;i<12;i++)
+	{
+		prefixSum[i+1] = prefixSum[i] + datesOfmonths[i];
+	}
+	//计算出是当前日期的前缀和
+	int arriveAliceDay = calculateDayYear(arriveAlice,prefixSum);
+	int leaveAliceDay = caculateDayYear(leaveAlice, prefixSum);
+	int arriveBobDay = calculateDayYear(arriveBob,prefixSum);
+	int leaveBobDay = calculateDayyear(leaveBob,prefixSum);
+	//两数相减，注意+1
+	return Math.max(0,Math.min(leaveAliceDay,leaveBobDay) - Math.max(arriveAliceDay,arriveBobDay)+1);
+}
+	public int calculateDayYear(String day, int[] prefixSum)
+	{
+	//当前月份
+	 int month = Integer.parseInt(day,substring(0,2));
+	//当前日期--从第4个字符串开始截取
+	 int date = Integer.parseInt(day, substring(3));
+                return prefixSum[month-1] + date;
+	}
+}

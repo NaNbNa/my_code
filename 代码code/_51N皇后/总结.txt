@@ -1,0 +1,12 @@
+--N皇后问题--思路难在表达哪些位置不适合放新的皇后
+--思路关键--使用2进制表示哪些列数不可以摆放皇后+回溯算法
+--从本题目中，需要学会的函数和二进制操作(这里讲到的最右边的1也是最小的1,在二进制中的数是从右到左一点点变大
+1.将一个数availablePositions 转换成题目要求的n位2进制才可以进行与或非操作
+		int availablePositions = (( 1 << n ) -1 ) & ( ~( columns | diagonals1 | diagonals2));	
+2.获取在availblePositions仅含最右边的1的数的二进制表示
+		int position = availblePositions & (-availablePositions);
+3.仅仅将一个数availablePositions 中的最右边的1去掉，不能变动其他的0和1
+		availablePositions = availablePositions & ( availablePositions -1);
+4.获取position右边的1的位置或者是二进制表示形式中末尾0的个数(就是最右边的1后面的0的个数)
+	int colums = _builtin_ctz(position);
+--注意string的初始化函数（构造函数）

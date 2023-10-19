@@ -1,0 +1,23 @@
+class Solution{
+private: 
+	//哈希表存储映射关系
+	unorder_map<int, string> dataBase;
+	int id;
+public:
+	Silution(){
+		id = 0;
+	}
+	
+	string encode(string longUrl){
+	 	id ++;
+		database[id] = longUrl;
+		return string("http://tinyurl.com/") + to_string(id);
+	}
+	
+	string decode(string shortUrl){
+		//转换成对应的key
+		int p= shortUrl.rfind('/') +1;
+		int key = stoi(shortUrl.substr(p, int(shortUrl.size()) - p);
+		return dataBase[key];
+	}
+}

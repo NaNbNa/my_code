@@ -1,0 +1,40 @@
+class Solution{
+	public List<String> printvertically(String s)
+	{
+		String[] strings = s.split(" “）；
+		int m = strings.length;
+		int n =0;
+		//获取最长的字符串的长度
+		for(String str: strings){
+			if(str.length()>n)
+			    n= str.length();
+}
+		//建立矩阵,m-个数,n-长度
+		char[][] arr = new char[m][n];
+		for(int i=0;i<arr.length;i++){
+			String str = strings[i];
+			for(int j=0;j<str.length();j++)
+				arr[i][j] = str.charAt(j);
+}
+		//按照列进行组装答案
+		List<String> ans = new ArrayList<>();
+		for(int i=0;i<n;i++){
+			StringBuffer str = new StringBuffer();
+			int index = 0;
+			for(int j=0;j<m;j++){
+				//不是空格
+				if(arr[i][j] !='\u0000'){
+					//index是判断空格不存在的最大长度.即标记位
+					index  =j;
+					//按列组合答案
+					str.append(arr[j][i])
+}
+				else
+					str.append(" ");
+}			//从字符串str中获取索引0到index+1（包括index位置）之间的子序列
+			ans.add(str.subSequence(0,index+1).toString());
+}
+		return ans;
+}
+}
+}

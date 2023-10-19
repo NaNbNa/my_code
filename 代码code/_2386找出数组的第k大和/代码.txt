@@ -1,0 +1,35 @@
+class Solution{
+public:
+	long long kSum(vector<int> &nums,int k){
+		long sum =0L;
+		//修改nums的值，计算非负数的和
+		for(int &x: nums)
+			if(x >=0 ) sum +=x;
+			else x = -x;
+		sort(nums.begin(),nums.end());
+
+		//优先队列--插入元素后会自动排序--从大到小
+		priority_queue<pair<long,int>> pq;
+		//入堆
+		pq.emplace(sum,0);
+		//先计算k-1，在进行判断while
+		//在k-1次while中，每一次生成1-2个数，放到优先队列中
+		//每次循环都取出最大的数值（并删去），可以做到优先队列中从大到小的出现子序列的和
+		while(--k){
+			//sum一直在更新--返回第一个元素
+			auto [sum, i] = pq.top();
+			//删掉第一个元素
+			pq.pop();
+			//防止i越界，并执行生成数字的操作，如果k太大，则不进行该操作
+			//为什么不是保留或不保留i而是i-1，是为了避免出现重复出现上次循环的数
+			if( i < nums.size()){
+				pq.emplace(sum - nums[i], i+1); //保留num[i-1]
+				//当i不为0 ，生成第二个数（i==0,代表没有i-1)
+				if(i) pq.emplace(sum - nums[i] + nums[i-1], i +1);//不保留num[i-1]，将之前减去的num[i-1]加回来	
+			}
+
+		}
+		return pq.top().first;
+	}
+
+}

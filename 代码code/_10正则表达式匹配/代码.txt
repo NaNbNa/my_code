@@ -1,0 +1,40 @@
+class Solution {
+	public boolean isMatch(String s,String p){
+		//长度
+		int m= s.length();
+		int n = p.length();
+		//答案--初始化全为false，+1的原因在于，i和j代表第i和第j个元素，不是s和p的下标，而且需要f[0][0] 为 true作为基值
+		boolean[][] f = new boolean[m+1][n+1];
+		f[0][0] = true;
+		//双重for循环，改变f数组的值
+		for(int i = 0;i<=m;i++）{
+		//j从1开始，是为了方便检查星号
+  		     for（int j=1;j<=n;j++){
+			//第j个元素是星号时，
+			if(p.charAt(j-1)=='*'){
+				//答案一定取决于j-2
+				f[i][j] = f[i][j-2];
+				//字符+星号起作用，则i-1，答案与i-1有关；不起作用时，对答案无任何影响
+				if(matches(s,p,i,j-1)
+					f[i][j] = f [i][j] || f[i-1][j];
+			//不是星号
+			else{
+				//匹配成功，则i-1，j-1；答案取决于i-1，j-1
+				if(matches(s,p,i,j))
+					f[i][j] = f[i-1][j-1];
+}
+}
+}
+}		
+		return f[m][n];
+}		
+		//正则方程式匹配规则（除了星号），i和j代表第i和第j个元素，不是s和p的下标
+		public boolean matches(String s,String p,int i,int j){
+			if(i=0)
+				return false;
+			if(p.charAt(j-1) == '.';
+				return true;
+			//只是字符时（非*和.），返回
+			return s.charAt(i-1) == p .charAt(j-1);
+}
+}

@@ -1,0 +1,39 @@
+class Solution{
+public:
+	//存储国王和皇后的数据结构很有意思--一共两层数组：第一层是皇后的标识，第二层数组仅有2个空间，存储平面坐标x,y
+	//比起vector<自制结构体>会好不少
+	vector<vector<int>> queensAttacktheKing(vector<vector<int>>& queens, vector<int>& king){
+		auto sgn = [] (int x) -> int{
+			return x > 0  ? 1 : ( x== 0 ? 0 : -1);
+		}
+		//存储八个方向的皇后--vector<int>
+		unordered_map<int, pair<vector<int>, int>> candidates;
+		//国王坐标
+		int kx = king[0], ky = king[1];
+		//遍历所有皇后
+		for(const auto&  queen : queens){
+			//一个皇后的坐标
+			int qx = queen[0], qy = queen[1];
+			
+			int x = qx - kx, y = qy - ky;
+			//判断皇后是否符合国王的八个方向--可以攻击的国王的皇后，但不一定攻击的到
+			if( x == 0 || y == 0 || abs(x) == abs(y) ){
+				//获取x，y的符号--1 : > 0;  0: ==0; -1: < 0;
+				int dx = sgn(x) , dy = sgn(y);
+				//哈希表--哈希表key的建立--将八个方向在f（X）处理后，可以一 一对应
+				int key = dx * 10 + dy;
+				//某一方向第一次出现皇后或者出现离国王更近的皇后
+				if( ! candidates.count(key) || candidate[key].second > ( abs(x) + abs (y) ) ) {
+					candidate[key] = {queen, abs(x) + abs(y) };
+				}
+			}			
+		}
+		
+		vector<vector<int> ans;
+		for(const auto& [_ , value] : candidates) {
+			//将皇后push进去
+			ans.push(value.first);
+		}
+		return ans;
+	}
+}

@@ -1,0 +1,26 @@
+class Solution{
+public:
+	int longestStrChain(vector<string> & words){
+		//哈希表--key = string,value = 最长子链
+		unorder_map<string,int> ws;
+		for(auto& s: words)
+			ws[s] = 0;
+		//dfs-递归函数--获取string s 的最长子链
+		function<int(string)> dfs = [&](string s) -> int{
+			int res = ws.[s];
+			if(int i =0; i<s.length; ++i){
+				auto t = s.substring(0,i) + s.substring(i+1);
+				//t在ws中
+				if( ws.count(t))
+					res = max(res, dfs(t));
+			}
+			return ws[s] = res +1;
+		}
+		int ans =0;
+		//哈希表如何遍历
+		for( auto & [s,_] : ws)
+			ans= max(ans,dfs(s));
+		return ans;
+	}
+}
+
